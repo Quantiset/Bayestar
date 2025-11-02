@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://c656f248ulpyb"]
+
+[ext_resource type="Script" uid="uid://d2a3rj5ftyspu" path="res://Scripts/detector.gd" id="1_efhde"]
+[ext_resource type="ArrayMesh" uid="uid://twt1npsnvkkp" path="res://Assets/ligo.obj" id="1_wr4y4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efhde"]
+resource_local_to_scene = true
+albedo_color = Color(0.6075, 0.74924994, 0.81, 1)
+metallic = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_efhde"]
+size = Vector3(0.05089722, 0.006311035, 0.012866211)
+
+[node name="Detector" type="StaticBody3D" groups=["detector"]]
+script = ExtResource("1_efhde")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.03, 0, 0, 0, 0.0016840552, 0.029952694, 0, -0.029952694, 0.0016840552, 0.0029205903, -0.008465856, 0.0179472)
+mesh = ExtResource("1_wr4y4")
+surface_material_override/0 = SubResource("StandardMaterial3D_efhde")
+surface_material_override/1 = SubResource("StandardMaterial3D_efhde")
+surface_material_override/2 = SubResource("StandardMaterial3D_efhde")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.0085321795, -0.08334659, 0.9964841, 0.99927765, -0.036195025, -0.0115834735, 0.037033215, 0.9958632, 0.08297758, 0.001331158, 0.015305847, 0.015545484)
+shape = SubResource("BoxShape3D_efhde")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.08854658, 0.99607205, 0, -0.99607205, 0.08854658, 0.037660696, -0.008285907, 0.01665688)
+shape = SubResource("BoxShape3D_efhde")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0.002405014)
+billboard = 1
+texture_filter = 0
+text = "Hi"
+font_size = 28
+outline_size = 4

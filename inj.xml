@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE LIGO_LW SYSTEM "http://ldas-sw.ligo.caltech.edu/doc/ligolwAPI/html/ligolw_dtd.txt">
+<LIGO_LW>
+	<Table Name="process:table">
+		<Column Name="program" Type="lstring"/>
+		<Column Name="version" Type="lstring"/>
+		<Column Name="cvs_repository" Type="lstring"/>
+		<Column Name="cvs_entry_time" Type="int_4s"/>
+		<Column Name="comment" Type="lstring"/>
+		<Column Name="is_online" Type="int_4s"/>
+		<Column Name="node" Type="lstring"/>
+		<Column Name="username" Type="lstring"/>
+		<Column Name="unix_procid" Type="int_4s"/>
+		<Column Name="start_time" Type="int_4s"/>
+		<Column Name="end_time" Type="int_4s"/>
+		<Column Name="jobid" Type="int_4s"/>
+		<Column Name="domain" Type="lstring"/>
+		<Column Name="ifos" Type="lstring"/>
+		<Column Name="process_id" Type="int_8s"/>
+		<Stream Name="process:table" Type="Local" Delimiter=",">
+			"inspinj","c90e1175f5e238741185744a4e516e58d42a9aec","UNCLEAN: Modified working tree",1432050327," ",0,"acer-laptop","ryon",8992,1446146351,1446146351,0,"lalapps","",0
+		</Stream>
+	</Table>
+	<Table Name="process_params:table">
+		<Column Name="program" Type="lstring"/>
+		<Column Name="process:process_id" Type="int_8s"/>
+		<Column Name="param" Type="lstring"/>
+		<Column Name="type" Type="lstring"/>
+		<Column Name="value" Type="lstring"/>
+		<Stream Name="process_params:table" Type="Local" Delimiter=",">
+			"inspinj",0,"--output","string","inj.xml",
+			"inspinj",0,"--m-distr","string","fixMasses",
+			"inspinj",0,"--fixed-mass1","float","1.400000",
+			"inspinj",0,"--fixed-mass2","float","1.400000",
+			"inspinj",0,"--time-step","float","7.200000e+03",
+			"inspinj",0,"--gps-start-time","int","1000000000",
+			"inspinj",0,"--gps-end-time","int","1000086400",
+			"inspinj",0,"--d-distr","string","volume",
+			"inspinj",0,"--min-distance","float","1.000000e+00",
+			"inspinj",0,"--max-distance","float","6.000000e+05",
+			"inspinj",0,"--l-distr","string","fixed",
+			"inspinj",0,"--longitude","float","1.745329e+00",
+			"inspinj",0,"--latitude","float","-1.047198e+00",
+			"inspinj",0,"--i-distr","string","uniform",
+			"inspinj",0,"--f-lower","float","30.000000",
+			"inspinj",0,"--disable-spin","string","",
+			"inspinj",0,"--waveform","string","TaylorF2threePointFivePN",
+			"inspinj",0,"--seed","int","12345"
+		</Stream>
+	</Table>
+	<Table Name="sim_inspiral:table">
+		<Column Name="process:process_id" Type="int_8s"/>
+		<Column Name="waveform" Type="lstring"/>
+		<Column Name="geocent_end_time" Type="int_4s"/>
+		<Column Name="geocent_end_time_ns" Type="int_4s"/>
+		<Column Name="h_end_time" Type="int_4s"/>
+		<Column Name="h_end_time_ns" Type="int_4s"/>
+		<Column Name="l_end_time" Type="int_4s"/>
+		<Column Name="l_end_time_ns" Type="int_4s"/>
+		<Column Name="g_end_time" Type="int_4s"/>
+		<Column Name="g_end_time_ns" Type="int_4s"/>
+		<Column Name="t_end_time" Type="int_4s"/>
+		<Column Name="t_end_time_ns" Type="int_4s"/>
+		<Column Name="v_end_time" Type="int_4s"/>
+		<Column Name="v_end_time_ns" Type="int_4s"/>
+		<Column Name="end_time_gmst" Type="real_8"/>
+		<Column Name="source" Type="lstring"/>
+		<Column Name="mass1" Type="real_4"/>
+		<Column Name="mass2" Type="real_4"/>
+		<Column Name="mchirp" Type="real_4"/>
+		<Column Name="eta" Type="real_4"/>
+		<Column Name="distance" Type="real_4"/>
+		<Column Name="longitude" Type="real_4"/>
+		<Column Name="latitude" Type="real_4"/>
+		<Column Name="inclination" Type="real_4"/>
+		<Column Name="coa_phase" Type="real_4"/>
+		<Column Name="polarization" Type="real_4"/>
+		<Column Name="psi0" Type="real_4"/>
+		<Column Name="psi3" Type="real_4"/>
+		<Column Name="alpha" Type="real_4"/>
+		<Column Name="alpha1" Type="real_4"/>
+		<Column Name="alpha2" Type="real_4"/>
+		<Column Name="alpha3" Type="real_4"/>
+		<Column Name="alpha4" Type="real_4"/>
+		<Column Name="alpha5" Type="real_4"/>
+		<Column Name="alpha6" Type="real_4"/>
+		<Column Name="beta" Type="real_4"/>
+		<Column Name="spin1x" Type="real_4"/>
+		<Column Name="spin1y" Type="real_4"/>
+		<Column Name="spin1z" Type="real_4"/>
+		<Column Name="spin2x" Type="real_4"/>
+		<Column Name="spin2y" Type="real_4"/>
+		<Column Name="spin2z" Type="real_4"/>
+		<Column Name="theta0" Type="real_4"/>
+		<Column Name="phi0" Type="real_4"/>
+		<Column Name="f_lower" Type="real_4"/>
+		<Column Name="f_final" Type="real_4"/>
+		<Column Name="eff_dist_h" Type="real_4"/>
+		<Column Name="eff_dist_l" Type="real_4"/>
+		<Column Name="eff_dist_g" Type="real_4"/>
+		<Column Name="eff_dist_t" Type="real_4"/>
+		<Column Name="eff_dist_v" Type="real_4"/>
+		<Column Name="numrel_mode_min" Type="int_4s"/>
+		<Column Name="numrel_mode_max" Type="int_4s"/>
+		<Column Name="numrel_data" Type="lstring"/>
+		<Column Name="amp_order" Type="int_4s"/>
+		<Column Name="taper" Type="lstring"/>
+		<Column Name="bandpass" Type="int_4s"/>
+		<Column Name="simulation_id" Type="int_8s"/>
+		<Stream Name="sim_inspiral:table" Type="Local" Delimiter=",">
+
+			0,"TaylorF2threePointFivePN",1000000000,0,1000000000,20183409,1000000000,18380375,1000000000,12363781,1000000000,6209275,1000000000,10035563,26930.06910391542,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,326.8820190429688,1.745329260826111,-1.047197580337524,1.938708543777466,4.717052936553955,0.1325969994068146,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,641.1478881835938,728.1572265625,1119.688110351562,2025.773681640625,         1415.68,0,0,"",-1,"TAPER_NONE",0,0,
+			0,"TaylorF2threePointFivePN",1000007200,0,1000007200,20519812,1000007200,16477826,1000007200,9560242,1000007200,10522837,1000007200,6750724,26930.59413625505,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,380.9183959960938,1.745329260826111,-1.047197580337524,1.738808155059814,0.402976393699646,3.579091787338257,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,941.6376342773438,1227.17626953125,3385.655029296875,1579.5087890625,          2227.2,0,0,"",-1,"TAPER_NONE",0,1,
+			0,"TaylorF2threePointFivePN",1000014400,0,1000014400,18908417,1000014400,12645472,1000014400,8087529,1000014400,14880331,1000014400,5054685,26931.11916859762,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,384.4505310058594,1.745329260826111,-1.047197580337524,2.418696165084839,2.024200916290283,2.38486647605896,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,559.5446166992188,774.5521240234375,995.2457885742188,699.214599609375,         1282.66,0,0,"",-1,"TAPER_NONE",0,2,
+			0,"TaylorF2threePointFivePN",1000021600,0,1000021600,15783308,1000021600,7915691,1000021600,8342369,1000021600,18107916,1000021600,5404333,26931.64420094018,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,451.519775390625,1.745329260826111,-1.047197580337524,0.881941556930542,1.750738024711609,0.4976852834224701,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,872.2034301757812,1240.817993164062,1548.282470703125,823.635009765625,         1297.13,0,0,"",-1,"TAPER_NONE",0,3,
+			0,"TaylorF2threePointFivePN",1000028800,0,1000028800,11986341,1000028800,3562612,1000028800,10256111,1000028800,19336130,1000028800,7705478,26932.16923327981,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,394.8059692382812,1.745329260826111,-1.047197580337524,1.362656116485596,1.674670934677124,5.833587169647217,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,1901.453735351562,1814.670776367188,1867.536499023438,1168.182373046875,         1863.81,0,0,"",-1,"TAPER_NONE",0,4,
+			0,"TaylorF2threePointFivePN",1000036000,0,1000036000,8540361,1000036000,758887,1000036000,13313222,1000036000,18234112,1000036000,11338228,26932.69426562238,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,364.5155639648438,1.745329260826111,-1.047197580337524,3.011483669281006,1.140899181365967,5.421872138977051,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,657.148681640625,758.9308471679688,564.0214233398438,426.2786865234375,         598.271,0,0,"",-1,"TAPER_NONE",0,5,
+			0,"TaylorF2threePointFivePN",1000043200,0,1000043200,6373661,1000043200,259797,1000043200,16690165,1000043200,15098727,1000043200,15323975,26933.21929796494,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,589.1803588867188,1.745329260826111,-1.047197580337524,2.400956153869629,4.552972316741943,0.3672735095024109,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,1869.854370117188,2151.74853515625,987.8008422851562,1097.20361328125,         1033.27,0,0,"",-1,"TAPER_NONE",0,6,
+			0,"TaylorF2threePointFivePN",1000050400,0,1000050400,6069917,1000050400,2199788,1000050400,19477242,1000050400,10774601,1000050400,18589021,26933.74433030457,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,162.3980255126953,1.745329260826111,-1.047197580337524,1.404011845588684,0.1785042285919189,1.345940232276917,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,1966.61376953125,2716.806640625,345.5859680175781,604.6234741210938,         932.176,0,0,"",-1,"TAPER_NONE",0,7,
+			0,"TaylorF2threePointFivePN",1000057600,0,1000057600,7710952,1000057600,6056258,1000057600,20923659,1000057600,6426586,1000057600,20253813,26934.26936264714,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,256.0513610839844,1.745329260826111,-1.047197580337524,2.284812211990356,5.04015588760376,3.678222179412842,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,948.4584350585938,1268.218872070312,372.5014953613281,893.2080078125,         402.176,0,0,"",-1,"TAPER_NONE",0,8,
+			0,"TaylorF2threePointFivePN",1000064800,0,1000064800,10854698,1000064800,10790332,1000064800,20639774,1000064800,3225970,1000064800,19869882,26934.79439498969,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,546.2821655273438,1.745329260826111,-1.047197580337524,1.357323408126831,4.961874961853027,6.166021823883057,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,3900.181640625,4341.0244140625,2623.843017578125,3058.451416015625,         1124.15,0,0,"",-1,"TAPER_NONE",0,9,
+			0,"TaylorF2threePointFivePN",1000072000,0,1000072000,14654277,1000072000,15126725,1000072000,18702059,1000072000,2034949,1000072000,17540653,26935.31942732932,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,582.4979858398438,1.745329260826111,-1.047197580337524,1.093689799308777,4.414502143859863,5.584316253662109,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,1341.484130859375,1479.19189453125,1166.166137695312,2481.948486328125,          1379.9,0,0,"",-1,"TAPER_NONE",0,10,
+			0,"TaylorF2threePointFivePN",1000079200,0,1000079200,18086142,1000079200,17897279,1000079200,15632507,1000079200,3174366,1000079200,13893584,26935.84445967189,"",1.399999976158142,1.399999976158142,1.218770742416382,0.25,545.3284912109375,1.745329260826111,-1.047197580337524,2.139470815658569,6.28166389465332,1.321673512458801,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,30,0,996.9229736328125,1051.013061523438,1191.435302734375,2231.908447265625,         1416.56,0,0,"",-1,"TAPER_NONE",0,11
+		</Stream>
+	</Table>
+</LIGO_LW>

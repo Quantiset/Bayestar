@@ -1,0 +1,153 @@
+[gd_scene load_steps=22 format=3 uid="uid://bnvp1qe60mgom"]
+
+[ext_resource type="Script" uid="uid://b7mao6cuos7gi" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://dxign73u1o2j3" path="res://Assets/8k_stars_milky_way.jpg" id="2_bo1nx"]
+[ext_resource type="Shader" uid="uid://mftibnctkaiu" path="res://Scripts/EarthOutline.gdshader" id="2_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://8pnp3p0s6pau" path="res://Assets/clouds.jpg" id="3_21xkr"]
+[ext_resource type="Texture2D" uid="uid://bwh7owxocw64m" path="res://Assets/leearthmap.jpg" id="3_kry3j"]
+[ext_resource type="Texture2D" uid="uid://c4hkd5fa61v3l" path="res://Assets/uv_map.png" id="4_kry3j"]
+[ext_resource type="Shader" uid="uid://1qduq2vf04kd" path="res://Scripts/Probability.gdshader" id="6_6bp64"]
+[ext_resource type="PackedScene" uid="uid://b0gr73t3gkoyj" path="res://Assets/fermi.glb" id="8_344ge"]
+[ext_resource type="Shader" uid="uid://blj6x0t0we4yw" path="res://Scripts/Transparentify.gdshader" id="8_hptm8"]
+[ext_resource type="Texture2D" uid="uid://dclmhbqjmsgyf" path="res://Assets/gay_one.png" id="8_ynf5e"]
+
+[sub_resource type="Gradient" id="Gradient_kry3j"]
+offsets = PackedFloat32Array(0.018237082, 0.09726444, 0.37386018, 1)
+colors = PackedColorArray(1, 0.98, 0.98, 0, 0.22540002, 0.98, 0.4895101, 0.43137255, 0.97, 0.84875, 0.2425, 0.75686276, 0.95, 0.03800002, 0.053199768, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_21xkr"]
+gradient = SubResource("Gradient_kry3j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
+render_priority = 0
+shader = ExtResource("2_jjvhh")
+shader_parameter/map = ExtResource("3_kry3j")
+shader_parameter/cloud_cover = ExtResource("3_21xkr")
+shader_parameter/prob_map = ExtResource("4_kry3j")
+shader_parameter/gradient = SubResource("GradientTexture1D_21xkr")
+shader_parameter/cloud_speed = 0.002
+shader_parameter/color_b = Color(0.72, 0.62424004, 0.58320004, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7u77a"]
+material = SubResource("ShaderMaterial_21xkr")
+radial_segments = 256
+rings = 128
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_344ge"]
+render_priority = 0
+shader = ExtResource("6_6bp64")
+shader_parameter/prob_map = ExtResource("4_kry3j")
+shader_parameter/gradient = SubResource("GradientTexture1D_21xkr")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ynf5e"]
+material = SubResource("ShaderMaterial_344ge")
+radius = 0.51
+height = 1.02
+radial_segments = 256
+rings = 128
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kry3j"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8gbba"]
+panorama = ExtResource("2_bo1nx")
+
+[sub_resource type="Sky" id="Sky_jjvhh"]
+sky_material = SubResource("PanoramaSkyMaterial_8gbba")
+
+[sub_resource type="Environment" id="Environment_jjgbg"]
+background_mode = 2
+sky = SubResource("Sky_jjvhh")
+ambient_light_source = 2
+ambient_light_color = Color(1, 0.99583334, 0.95, 1)
+ambient_light_energy = 0.1
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1ilt"]
+shader = ExtResource("8_hptm8")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_jjgbg")
+
+[node name="Earth" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance" type="MeshInstance3D" parent="Earth"]
+mesh = SubResource("SphereMesh_7u77a")
+skeleton = NodePath("../..")
+
+[node name="Probability" type="MeshInstance3D" parent="Earth"]
+mesh = SubResource("SphereMesh_ynf5e")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Earth"]
+shape = SubResource("SphereShape3D_kry3j")
+
+[node name="Gimbal" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Gimbal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.63689876, 0.1957307, -0.7456874, 0.7004513, 0.25715706, 0.66576165, 0.32206875, -0.9463403, 0.026682943, 0, 1.777312, 0.056952357)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jjgbg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Custom Preset:"
+
+[node name="MenuButton" type="OptionButton" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Panel"]
+material = SubResource("ShaderMaterial_d1ilt")
+layout_mode = 0
+offset_left = -275.0
+offset_top = -15.0
+offset_right = 87.0
+offset_bottom = 85.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_ynf5e")
+
+[node name="Random" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RandomEventButton" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/Random"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Generate Random Event"
+
+[node name="Satellites" type="Node3D" parent="."]
+
+[node name="fermi" parent="Satellites" instance=ExtResource("8_344ge")]
+transform = Transform3D(0.0009731588, 0, -0.00023013468, 0, 0.001, 0, 0.00023013468, 0, 0.0009731588, 0.21155953, 0, -0.4674908)
+
+[connection signal="item_selected" from="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/MenuButton" to="." method="_on_fits_button_item_selected"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/Random/RandomEventButton" to="." method="_on_random_event_button_pressed"]
