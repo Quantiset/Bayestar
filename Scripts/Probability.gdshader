@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_disabled;
+render_mode blend_mix, cull_disabled, depth_draw_opaque;
 
 uniform sampler2D prob_map;
 uniform sampler2D gradient;
@@ -13,10 +13,10 @@ void fragment() {
 
 	ALBEDO = color_gradient.rgb;
     EMISSION = ALBEDO * pulse * 0.4;
-	ALPHA = color_gradient.a;
+	ALPHA = color_gradient.a * 2.0;
 }
 
 void vertex() {
 	float s = texture(prob_map, UV).r;
-	VERTEX += NORMAL * 0.01 * (sin(TIME) + 1.0) + 0.02 * s * NORMAL;
+	VERTEX += NORMAL * 0.01 * (sin(TIME) + 1.0) + 0.01 * s * NORMAL;
 }

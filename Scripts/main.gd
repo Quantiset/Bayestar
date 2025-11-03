@@ -51,6 +51,7 @@ func _ready():
 	
 
 func _physics_process(delta):
+	$DirectionalLight3D.rotate_y(delta * 0.03)
 	var light_direction = -$DirectionalLight3D.global_transform.basis.z
 	$Earth/MeshInstance.mesh.material.set_shader_parameter("light_direction", light_direction)
 	$Satellites.rotate_y(delta * 0.03)
@@ -101,18 +102,23 @@ func toggle_detector(d):
 	for det in selected_detectors:
 		detectors_s.append(det.obs_name)
 	Globals.detectors_on = detectors_s
+	$CanvasLayer/MarginContainer/VBoxContainer/ActivatedList.text = \
+		"Activated List:\n" + "\n".join(detectors_s)
 
 func _on_fits_button_item_selected(index):
 	var fit_file = "res://Assets/saved_maps/" + Globals.presets[index] + "_uv_map.png"
 	update_prob_map(fit_file)
 
 func _on_random_event_button_pressed():
-	Globals.load_prob_file()
+	if not Input.is_action_pressed("ui_shift"):
+		Globals.load_prob_file()
 	update_prob_map("res://Assets/uv_map.png")
 
 func update_prob_map(fit_file):
-	await get_tree().process_frame
-	await get_tree().process_frame
+	for i in range(10):
+		await get_tree().process_frame
 	var tex = ResourceLoader.load(fit_file, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE)
+	for i in range(10):
+		await get_tree().process_frame
 	$Earth/MeshInstance.mesh.material.set_shader_parameter("prob_map", tex)
 	$Earth/Probability.mesh.material.set_shader_parameter("prob_map", tex)
