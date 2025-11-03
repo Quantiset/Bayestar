@@ -1,2 +1,2 @@
 # Bayestar
-Godot implementation of the Bayestar algorithm
+Godot visualization of the Bayestar algorithm
