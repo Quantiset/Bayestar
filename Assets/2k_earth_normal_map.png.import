@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpqbi4y36yui0"
-path.s3tc="res://.godot/imported/night.jpg-45fd12b01462653c460e07766b8d803c.s3tc.ctex"
+uid="uid://cbncpj6ub8ove"
+path.s3tc="res://.godot/imported/2k_earth_normal_map.png-9006c0aebc162ee5514e0fd531fc7afe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/night.jpg"
-dest_files=["res://.godot/imported/night.jpg-45fd12b01462653c460e07766b8d803c.s3tc.ctex"]
+source_file="res://Assets/2k_earth_normal_map.png"
+dest_files=["res://.godot/imported/2k_earth_normal_map.png-9006c0aebc162ee5514e0fd531fc7afe.s3tc.ctex"]
 
 [params]
 

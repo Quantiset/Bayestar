@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bnvp1qe60mgom"]
+[gd_scene load_steps=24 format=3 uid="uid://bnvp1qe60mgom"]
 
 [ext_resource type="Script" uid="uid://b7mao6cuos7gi" path="res://Scripts/main.gd" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://dxign73u1o2j3" path="res://Assets/8k_stars_milky_way.jpg" id="2_bo1nx"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://8pnp3p0s6pau" path="res://Assets/clouds.jpg" id="3_21xkr"]
 [ext_resource type="Texture2D" uid="uid://bwh7owxocw64m" path="res://Assets/leearthmap.jpg" id="3_kry3j"]
 [ext_resource type="Texture2D" uid="uid://c4hkd5fa61v3l" path="res://Assets/uv_map.png" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://cpqbi4y36yui0" path="res://Assets/night.jpg" id="5_d1ilt"]
 [ext_resource type="Shader" uid="uid://1qduq2vf04kd" path="res://Scripts/Probability.gdshader" id="6_6bp64"]
+[ext_resource type="Texture2D" uid="uid://cbncpj6ub8ove" path="res://Assets/2k_earth_normal_map.png" id="6_6iyac"]
 [ext_resource type="PackedScene" uid="uid://b0gr73t3gkoyj" path="res://Assets/fermi.glb" id="8_344ge"]
 [ext_resource type="Shader" uid="uid://blj6x0t0we4yw" path="res://Scripts/Transparentify.gdshader" id="8_hptm8"]
 [ext_resource type="Texture2D" uid="uid://dclmhbqjmsgyf" path="res://Assets/gay_one.png" id="8_ynf5e"]
@@ -23,10 +25,13 @@ render_priority = 0
 shader = ExtResource("2_jjvhh")
 shader_parameter/map = ExtResource("3_kry3j")
 shader_parameter/cloud_cover = ExtResource("3_21xkr")
+shader_parameter/nightmap = ExtResource("5_d1ilt")
 shader_parameter/prob_map = ExtResource("4_kry3j")
+shader_parameter/normalmap = ExtResource("6_6iyac")
 shader_parameter/gradient = SubResource("GradientTexture1D_21xkr")
 shader_parameter/cloud_speed = 0.002
 shader_parameter/color_b = Color(0.72, 0.62424004, 0.58320004, 1)
+shader_parameter/light_direction = Vector3(0, 0, 0)
 
 [sub_resource type="SphereMesh" id="SphereMesh_7u77a"]
 material = SubResource("ShaderMaterial_21xkr")
@@ -60,6 +65,8 @@ sky = SubResource("Sky_jjvhh")
 ambient_light_source = 2
 ambient_light_color = Color(1, 0.99583334, 0.95, 1)
 ambient_light_energy = 0.1
+glow_bloom = 0.01
+glow_blend_mode = 0
 adjustment_enabled = true
 adjustment_brightness = 0.9
 adjustment_contrast = 1.2
@@ -90,7 +97,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.63689876, 0.1957307, -0.7456874, 0.7004513, 0.25715706, 0.66576165, 0.32206875, -0.9463403, 0.026682943, 0, 1.777312, 0.056952357)
+transform = Transform3D(-0.036267005, 0.8539053, -0.51916337, 0.05950592, 0.52042854, 0.8518293, 0.997569, 0, -0.06968681, 0, 1.777312, 0.056952357)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jjgbg")
@@ -140,6 +147,7 @@ texture = ExtResource("8_ynf5e")
 layout_mode = 2
 
 [node name="RandomEventButton" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer/Random"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Generate Random Event"

@@ -21,12 +21,9 @@ var detectors_on = [] # populated before call to load_prob_file
 func _ready():
 	return
 
-func load_prob_file(preset_path := ""):
+func load_prob_file():
 	var detector_string = " ".join(Globals.detectors_on)
-	print(detector_string)
-	return
 	var output = []
 	var gpath = ProjectSettings.globalize_path("res://Assets")
-	print(["/home/ryon/bayestar/init.sh", gpath, preset_path])
-	OS.execute("wsl", ["/home/ryon/bayestar/init.sh", gpath, preset_path], output)
+	OS.execute("wsl", ["/home/ryon/bayestar/init.sh", gpath, detector_string], output)
 	return output

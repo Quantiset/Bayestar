@@ -51,6 +51,8 @@ func _ready():
 	
 
 func _physics_process(delta):
+	var light_direction = -$DirectionalLight3D.global_transform.basis.z
+	$Earth/MeshInstance.mesh.material.set_shader_parameter("light_direction", light_direction)
 	$Satellites.rotate_y(delta * 0.03)
 
 func _input(event):
@@ -102,9 +104,15 @@ func toggle_detector(d):
 
 func _on_fits_button_item_selected(index):
 	var fit_file = "res://Assets/saved_maps/" + Globals.presets[index] + "_uv_map.png"
-	var tex = ResourceLoader.load(fit_file, "Texture2D", ResourceLoader.CACHE_MODE_REUSE)
-	$Earth/MeshInstance.mesh.material.set_shader_parameter("prob_map", tex)
-	$Earth/Probability.mesh.material.set_shader_parameter("prob_map", tex)
+	update_prob_map(fit_file)
 
 func _on_random_event_button_pressed():
-	pass # Replace with function body.
+	Globals.load_prob_file()
+	update_prob_map("res://Assets/uv_map.png")
+
+func update_prob_map(fit_file):
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var tex = ResourceLoader.load(fit_file, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE)
+	$Earth/MeshInstance.mesh.material.set_shader_parameter("prob_map", tex)
+	$Earth/Probability.mesh.material.set_shader_parameter("prob_map", tex)
