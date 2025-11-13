@@ -24,6 +24,13 @@ func _ready():
 func load_prob_file():
 	var detector_string = " ".join(Globals.detectors_on)
 	var output = []
-	var gpath = ProjectSettings.globalize_path("res://Assets")
-	OS.execute("wsl", ["/home/ryon/bayestar/init.sh", gpath, detector_string], output)
+	if OS.get_name() == "Windows":
+		var gpath = ProjectSettings.globalize_path("res://Assets")
+		OS.execute("wsl", ["/home/ryon/bayestar/init.sh", gpath, detector_string], output)
+	elif OS.get_name() == "Linux":
+		var gpath = ProjectSettings.globalize_path("res://bayestar_python/gaming.sh")
+		var conda_setup = "/home/cob/miniforge3/etc/profile+++.d/conda.sh"
+		var cmd = "source '%s' && conda init && conda activate bayestar && bash '%s' '%s'" % [conda_setup, gpath, detector_string]
+		OS.execute("/bin/bash", ["-lc", cmd], output, true)
+		print(output)
 	return output
