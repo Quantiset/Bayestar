@@ -84,11 +84,7 @@ func _physics_process(delta):
 	
 	$DirectionalLight3D.rotate_y(delta * 0.03)
 	var light_direction = -$DirectionalLight3D.global_transform.basis.z
-	$DirectionalLight3D.position = 100*Vector3(
-		sin($DirectionalLight3D.rotation.y) * cos($DirectionalLight3D.rotation.x),
-		-sin($DirectionalLight3D.rotation.x),
-		cos($DirectionalLight3D.rotation.y) * cos($DirectionalLight3D.rotation.x)
-	)
+	$DirectionalLight3D.position = $DirectionalLight3D.global_transform.origin - light_direction * 100.0
 	$Earth/MeshInstance.mesh.material.set_shader_parameter("light_direction", light_direction)
 	$Satellites.rotate_y(delta * 0.03)
 
