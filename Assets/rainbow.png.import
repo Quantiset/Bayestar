@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dclmhbqjmsgyf"
-path="res://.godot/imported/gay_one.png-6899af6a0cfd4769ce8f9a6273fc5d21.ctex"
+path="res://.godot/imported/rainbow.png-1d1076ffaaf6948c5601b56be95f9230.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/gay_one.png"
-dest_files=["res://.godot/imported/gay_one.png-6899af6a0cfd4769ce8f9a6273fc5d21.ctex"]
+source_file="res://Assets/rainbow.png"
+dest_files=["res://.godot/imported/rainbow.png-1d1076ffaaf6948c5601b56be95f9230.ctex"]
 
 [params]
 
