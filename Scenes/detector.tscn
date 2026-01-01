@@ -12,6 +12,7 @@ metallic = 0.5
 size = Vector3(0.05089722, 0.006311035, 0.012866211)
 
 [node name="Detector" type="StaticBody3D" groups=["detector"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_efhde")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

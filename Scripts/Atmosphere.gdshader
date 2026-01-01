@@ -1,3 +1,6 @@
+// ADAPTED HEAVILY FROM SEBASTIAN LAGUE'S VIDEO ON ATMOSPHERE SHADERS
+// https://www.youtube.com/watch?v=DxfEbulyFcY
+
 shader_type spatial;
 render_mode unshaded;
 
@@ -17,6 +20,11 @@ uniform vec4 min_max_x_y;
 uniform float density_falloff = 0.0;
 uniform int sample_points = 10;
 uniform vec3 scattering_coeffs;
+
+uniform vec4 ocean_col_a = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 ocean_col_b = vec4(0.0, 0.0, 1.0, 1.0);
+uniform float ocean_depth_mult = 5.0;
+uniform float ocean_alpha_mult = 4.0;
 
 float density_at_point(vec3 point) {
 	float height_above_surface = length(point - planet_position) - planet_radius;
@@ -39,12 +47,12 @@ float optical_depth(vec3 ray_origin, vec3 ray_dir, float ray_length) {
 	return optical_depth;
 }
 
-vec2 ray_sphere(vec3 ray_origin, vec3 ray_dir) {
+vec2 ray_sphere(vec3 ray_origin, vec3 ray_dir, float rad) {
 	vec3 to_earth = ray_origin - planet_position;
 	
 	float a = 1.0;
 	float b = 2.0 * dot(to_earth, ray_dir);
-	float c = dot(to_earth, to_earth) - atmosphere_radius * atmosphere_radius;
+	float c = dot(to_earth, to_earth) - rad * rad;
 	
 	float discriminant = b*b - 4.0*a*c;
 	
@@ -73,17 +81,24 @@ void fragment() {
 	
 	float d_linear = abs(linear_distance);
 	
-	float min_x = min_max_x_y.r;
-	float max_x = min_max_x_y.g;
-	float min_y = min_max_x_y.b;
-	float max_y = min_max_x_y.a;
-	
 	vec4 clip = vec4(SCREEN_UV * 2.0 - 1.0, 1.0, 1.0);
 	vec4 dview = INV_PROJECTION_MATRIX * clip;
 	vec3 dir_view = normalize(dview.xyz);
 	vec3 dir = normalize(camera_basis * dir_view);
 	
-	vec2 rs = ray_sphere(camera_position, dir);
+	vec2 ws = ray_sphere(camera_position, dir, planet_radius);
+	float dist_to_water = ws.r;
+	float dist_in_water = ws.g;
+	float water_view_depth = min(dist_in_water, d_linear - dist_to_water);
+	float optical_depth_water = 1.0 - exp(-water_view_depth * ocean_depth_mult);
+	float water_alpha = 1.0 - exp(-water_view_depth * ocean_alpha_mult);
+	vec4 water_pre_color = mix(ocean_col_a, ocean_col_b, optical_depth_water);
+	vec4 water_color = vec4(d_linear);
+	water_color = vec4(0.0);
+	
+	//water_color = vec4(vec3(step(0.0001, min(dist_in_water, linear_distance - dist_to_water))), 1.0);
+	
+	vec2 rs = ray_sphere(camera_position, dir, atmosphere_radius);
 	float dist_to_atmosphere = rs.r;
 	float dist_in_atmosphere = rs.g;
 	
@@ -104,7 +119,7 @@ void fragment() {
 		float density = density_at_point(query_pos);
 		
 		if (density > 0.0001) {
-			float sun_time_spent = ray_sphere(query_pos, to_sun).y;
+			float sun_time_spent = ray_sphere(query_pos, to_sun, atmosphere_radius).y;
 			float sun_optical_depth = optical_depth(query_pos, to_sun, sun_time_spent);
 			view_optical_depth = optical_depth(query_pos, -dir, float(i+1) * step_size);
 			vec3 transmittance = exp(-(sun_optical_depth+view_optical_depth) * scattering_coeffs);
@@ -113,9 +128,8 @@ void fragment() {
 		}
 	}
 	
-	ALBEDO = og_col.rgb * exp(-view_optical_depth) + total_color;
-	//ALPHA = 1.0;
-	
+	ALBEDO = (og_col.rgb + water_color.rgb) * exp(-view_optical_depth) + total_color;
+	//ALBEDO = vec3(d_nonlinear);
 }
 
 //void light() {

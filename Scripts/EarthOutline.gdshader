@@ -5,16 +5,18 @@ uniform sampler2D cloud_cover;
 uniform sampler2D nightmap;
 uniform sampler2D prob_map;
 uniform sampler2D normalmap;
+uniform sampler2D height_map;
 uniform sampler2D gradient;
 
-uniform float cloud_speed = 0.005;
-
-uniform vec4 color_b : source_color;
+uniform float cloud_speed = 0.000;
+uniform float depression_strength = 1.0;
 
 uniform vec3 light_direction;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+	vec4 col = texture(height_map, UV);
+	float h = length(col.rgb);
+	VERTEX *= (h*0.025 + 0.985) - depression_strength*(1.0-step(0.086099, h))*0.003;
 }
 
 void fragment() {
@@ -42,6 +44,6 @@ void fragment() {
 		EMISSION = earth_col.rgb * max(light_s - 0.1, 0.);
 	}
 
-	ALBEDO = earth_col;
-	NORMAL_MAP = texture(normalmap, UV).rgb;
+	ALBEDO = earth_col.rgb;
+	//NORMAL_MAP = texture(normalmap, UV).rgb;
 }
